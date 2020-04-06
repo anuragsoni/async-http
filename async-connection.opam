@@ -7,12 +7,12 @@ license: "MIT"
 homepage: "https://gitlab.com/anuragsoni/async-http.git"
 bug-reports: "https://gitlab.com/anuragsoni/async-http/issues"
 depends: [
-  "ocaml" {>= "4.08.0"}
-  "dune" {>= "2.1"}
-  "core" {>= "0.13"}
-  "async" {>= "0.13"}
-  "ppx_jane" {>= "0.13"}
-  "async_ssl" {>= "0.13"}
+  "ocaml" {>= "4.06.1"}
+  "dune" {>= "1.11"}
+  "core" {>= "0.11"}
+  "async" {>= "0.11"}
+  "ppx_jane" {>= "0.11"}
+  "async_ssl" {>= "0.11"}
 ]
 build: [
   ["dune" "subst"] {pinned}

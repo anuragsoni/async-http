@@ -22,17 +22,17 @@
  (synopsis "Async connections")
  (depends
   (ocaml
-   (>= 4.08.0))
+   (>= 4.06.1))
   (dune
-   (>= 2.1))
+   (>= 1.11))
   (core
-   (>= 0.13))
+   (>= 0.11))
   (async
-   (>= 0.13))
+   (>= 0.11))
   (ppx_jane
-   (>= 0.13))
+   (>= 0.11))
   (async_ssl
-   (>= 0.13))))
+   (>= 0.11))))
 
 (package
  (name async-http)
@@ -41,18 +41,17 @@
   (http-server http-client http async ocaml))
  (depends
   (ocaml
-   (>= 4.08.0))
+   (>= 4.06.1))
   (dune
-   (>= 2.1))
+   (>= 1.11))
   (core
-   (>= 0.13))
+   (>= 0.11))
   (async
-   (>= 0.13))
+   (>= 0.11))
   ppx_jane
   httpaf
   faraday
-  uri-sexp
   magic-mime
   (async_ssl
-   (>= 0.13))
+   (>= 0.11))
   uri))
