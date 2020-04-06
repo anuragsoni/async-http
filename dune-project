@@ -1,4 +1,4 @@
-(lang dune 2.1)
+(lang dune 1.11)
 
 (name async-http)
 

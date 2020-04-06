@@ -125,7 +125,7 @@ module Response : sig
   val of_file
     :  ?headers:Headers.t
     -> ?status:Httpaf.Status.t
-    -> Filename.t
+    -> string
     -> t Deferred.t
   (** [of_file] expects a fully qualified path to a file. Its contents are then
       read and a streaming response is created that is used to create the response.

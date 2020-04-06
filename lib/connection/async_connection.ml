@@ -57,7 +57,7 @@ module Server = struct
         ()
     with
     | Error e ->
-      Logger.error_s ([%sexp_of: Error.t] e);
+      Logger.error !"%{sexp: Error.t}" e;
       return ()
     | Ok conn ->
       let%bind reader =
@@ -75,7 +75,8 @@ module Server = struct
         let%bind () =
           match%map Ssl.Connection.closed conn with
           | Ok _ -> ()
-          | Error e -> Logger.error_s ([%sexp_of: Error.t] e)
+          | Error e ->
+            Logger.error !"%{sexp: Error.t}" e
         in
         Reader.close reader
       in
@@ -106,9 +107,9 @@ module Server = struct
       ~on_handler_error
       where_to_listen
       (fun addr r w ->
-        match ssl_options with
-        | Some ssl_options -> create_ssl ssl_options (handle_client addr) r w
-        | _ -> handle_client addr r w)
+         match ssl_options with
+         | Some ssl_options -> create_ssl ssl_options (handle_client addr) r w
+         | _ -> handle_client addr r w)
   ;;
 end
 
@@ -124,7 +125,6 @@ module Client = struct
     ; crt_file : string option
     ; key_file : string option
     ; verify_modes : Verify_mode.t list option
-    ; session : (Ssl.Session.t[@sexp.opaque]) option
     ; verify_peer : Ssl.Connection.t -> unit Or_error.t
     }
   [@@deriving sexp_of, fields]
@@ -140,7 +140,6 @@ module Client = struct
       ?crt_file
       ?key_file
       ?verify_modes
-      ?session
       ?(verify_peer = fun _ -> Or_error.return ())
       ()
     =
@@ -154,7 +153,6 @@ module Client = struct
     ; crt_file
     ; key_file
     ; verify_modes
-    ; session
     ; verify_peer
     }
   ;;
@@ -181,7 +179,6 @@ module Client = struct
         ?crt_file:opts.crt_file
         ?key_file:opts.key_file
         ?verify_modes:opts.verify_modes
-        ?session:opts.session
         ~app_to_ssl
         ~ssl_to_app
         ~net_to_ssl
@@ -206,7 +203,8 @@ module Client = struct
         let%bind () =
           match%map Ssl.Connection.closed conn with
           | Ok _ -> ()
-          | Error e -> Logger.error_s ([%sexp_of: Error.t] e)
+          | Error e ->
+              Logger.error !"%{sexp: Error.t}" e
         in
         Reader.close reader
       in
@@ -235,8 +233,8 @@ module Client = struct
       ?timeout
       where_to_connect
       (fun addr reader writer ->
-        match mode with
-        | Regular -> handler addr reader writer
-        | Secure opts -> ssl_connect opts (handler addr) reader writer)
+         match mode with
+         | Regular -> handler addr reader writer
+         | Secure opts -> ssl_connect opts (handler addr) reader writer)
   ;;
 end

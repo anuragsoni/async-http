@@ -4,5 +4,5 @@
  (inline_tests)
  (preprocess
   (pps ppx_jane))
- (libraries async async_ssl core httpaf uri-sexp uri.services
+ (libraries async async_ssl core httpaf uri uri.sexp uri.services
    async_connection magic-mime))
